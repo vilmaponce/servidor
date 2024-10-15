@@ -31,7 +31,7 @@ Paso 4: Manejar las rutas y métodos HTTP
 Aquí es donde definimos cómo el servidor debe comportarse cuando recibe solicitudes en diferentes rutas (/, /hola, /datos, etc.) y con distintos métodos HTTP (GET, POST, PUT, DELETE).
 
 Ruta GET / - Página de inicio
-```
+```javascript
 if (req.url === '/' && req.method === 'GET') {
   res.writeHead(200);
   res.end(JSON.stringify({ message: 'Bienvenido a la página de inicio' }));
@@ -41,7 +41,7 @@ if (req.url === '/' && req.method === 'GET') {
 ¿Para qué?: En esta ruta, respondemos con un código de estado 200 (OK) y un mensaje JSON que dice "Bienvenido a la página de inicio".
 Ruta GET /hola - Hola Mundo
 
-```
+```javascript
 else if (req.url === '/hola' && req.method === 'GET') {
   res.writeHead(200);
   res.end(JSON.stringify({ message: 'Hola Mundo' }));
@@ -50,7 +50,7 @@ else if (req.url === '/hola' && req.method === 'GET') {
 ¿Por qué?: Aquí estamos manejando una solicitud GET en la ruta /hola.
 ¿Para qué?: Cuando alguien visita http://localhost:3000/hola, respondemos con el mensaje "Hola Mundo". Esto es similar al ejemplo básico que te mostré primero.
 Ruta POST /datos - Enviar datos al servidor
-```
+```javascript
 else if (req.url === '/datos' && req.method === 'POST') {
   let body = '';
   req.on('data', chunk => {
@@ -68,7 +68,7 @@ else if (req.url === '/datos' && req.method === 'POST') {
 ¿Para qué?: Aquí estamos capturando los datos enviados en el cuerpo de la solicitud (req.on('data')), y una vez que los recibimos completamente, los procesamos (JSON.parse()) y respondemos con un mensaje confirmando la recepción de los datos.
 Ejemplo: Puedes enviar datos como { "nombre": "Juan" } y el servidor los devolverá junto con el mensaje "Datos recibidos correctamente".
 
-```
+```javascript
 else if (req.url === '/recurso' && req.method === 'PUT') {
   res.writeHead(200);
   res.end(JSON.stringify({ message: 'Recurso actualizado' }));
@@ -77,7 +77,7 @@ else if (req.url === '/recurso' && req.method === 'PUT') {
 ¿Por qué?: Esta ruta maneja solicitudes PUT, que normalmente se utilizan para actualizar información.
 ¿Para qué?: Simulamos la actualización de un recurso y respondemos con un mensaje "Recurso actualizado".
 Ruta DELETE /recurso - Eliminar un recurso
-```
+```javascript
 else if (req.url === '/recurso' && req.method === 'DELETE') {
   res.writeHead(200);
   res.end(JSON.stringify({ message: 'Recurso eliminado' }));
@@ -86,7 +86,7 @@ else if (req.url === '/recurso' && req.method === 'DELETE') {
 ¿Por qué?: Esta ruta maneja solicitudes DELETE, que suelen usarse para eliminar recursos.
 ¿Para qué?: Simulamos la eliminación de un recurso y enviamos una respuesta indicando que el recurso ha sido eliminado.
 Paso 5: Manejo de errores - Ruta no encontrada
-```
+```javascript
 else {
   res.writeHead(404, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ error: 'Ruta no encontrada' }));
@@ -95,17 +95,23 @@ else {
 ¿Por qué?: Necesitamos manejar el caso en el que el usuario intenta acceder a una ruta que no existe.
 ¿Para qué?: Si ninguna de las rutas anteriores coincide con la solicitud, respondemos con un error 404 (No encontrado) y un mensaje JSON "Ruta no encontrada".
 Paso 6: Escuchar en un puerto
-```
+```javascript
 server.listen(3000, () => {
   console.log('Servidor escuchando en http://localhost:3000');
 });
 ```
-¿Por qué?: El servidor necesita "escuchar" en un puerto específico para recibir solicitudes.
-¿Para qué?: Aquí estamos indicando que el servidor escuchará en el puerto 3000. Cuando el servidor está listo, imprime un mensaje en la consola: "Servidor escuchando en http://localhost:3000".
-¿Qué hemos logrado?
-Múltiples rutas y métodos HTTP: El servidor responde a rutas específicas (/, /hola, /datos, /recurso) y diferentes métodos HTTP (GET, POST, PUT, DELETE).
-Recepción de datos: En la ruta POST /datos, el servidor puede recibir y procesar datos enviados desde el cliente.
-Manejo de errores: Si el cliente intenta acceder a una ruta no definida, el servidor responde con un error 404 indicando que la ruta no existe.
-Servidor funcional: Todo esto lo puedes probar en tu navegador o con herramientas como curl o Postman.
+**¿Por qué?:** El servidor necesita "escuchar" en un puerto específico para recibir solicitudes.
+**¿Para qué?:** Aquí estamos indicando que el servidor escuchará en el puerto 3000. Cuando el servidor está listo, imprime un mensaje en la consola: ***"Servidor escuchando en http://localhost:3000".***
+
+**¿Qué hemos logrado?**
+*Múltiples rutas y métodos HTTP:* El servidor responde a rutas específicas (/, /hola, /datos, /recurso) y diferentes métodos HTTP (GET, POST, PUT, DELETE).
+
+*Recepción de datos:* En la ruta POST /datos, el servidor puede recibir y procesar datos enviados desde el cliente.
+
+*Manejo de errores:* Si el cliente intenta acceder a una ruta no definida, el servidor responde con un error 404 indicando que la ruta no existe.
+
+*Servidor funcional:* Todo esto lo puedes probar en tu navegador o con herramientas como Postman.
 
 Ruta PUT /recurso - Actualizar un recurso
+
+****AUTOR: VILMA PONCE****
